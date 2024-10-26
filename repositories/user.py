@@ -18,6 +18,19 @@ class UserRepository:
     def get_user(self, db: Session, user_id: int):
         return db.query(User).filter(User.id == user_id).first()
     
+    def update_user(self, db: Session, user_id: int, username: str = None):
+        user = db.query(User).filter(User.id == user_id).first()
+        
+        if user:
+            if username:
+                user.username = username
+                
+                
+        db.commit()
+        db.refresh(user)
+        return user
+            
+    
     def delete(self, db: Session, user_id: int):
         user = db.query(User).filter(User.id == user_id).first()
         

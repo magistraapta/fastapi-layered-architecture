@@ -21,5 +21,8 @@ class UserService:
     def get_user(self, db: Session, user_id: int) -> User:
         return self.user_repository.get_user(db, user_id)
     
+    def update_user(self, db: Session, user_id: int, username: str = None):
+        return self.user_repository.update_user(db=db, user_id=user_id, username=username)
+    
     def delete_user(self, db: Session, user_id: int):
         return self.user_repository.delete(db=db, user_id=user_id)
