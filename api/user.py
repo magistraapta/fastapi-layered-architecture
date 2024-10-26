@@ -1,10 +1,14 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy.orm import Session
 from schemas.user import UserCreate, UserResponse, UserUpdate
 from db.database import get_db
 from repositories.user import UserRepository
 from services.user import UserService
 from typing import List
+from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse
+
+templates = Jinja2Templates(directory="views")
 
 router = APIRouter(prefix='/users', tags=['users'])
 
@@ -20,10 +24,6 @@ def create_user(user_create: UserCreate, db: Session = Depends(get_db)):
 def get_all_users(db: Session = Depends(get_db)):
     
     return user_service.get_all_users(db)
-
-@router.get("/test")
-def test():
-    return {"test": "testing"}
 
 @router.get("/{user_id}", response_model=UserResponse)
 def get_user(user_id: int, db: Session = Depends(get_db)):
