@@ -17,3 +17,9 @@ class UserService:
     
     def get_all_users(self, db: Session):
         return self.user_repository.get_all_users(db=db)
+    
+    def get_user(self, db: Session, user_id: int) -> User:
+        return self.user_repository.get_user(db, user_id)
+    
+    def delete_user(self, db: Session, user_id: int):
+        return self.user_repository.delete(db=db, user_id=user_id)
